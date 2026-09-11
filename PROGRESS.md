@@ -74,3 +74,17 @@ python3 validate_workflow_links.py \
 2. 2단계에서 Qwen3-8B GGUF Q4_K_M CPU 전용 NLU 파이프라인과 프롬프트 미리보기 UI 설계·구현.
 3. 3단계에서 워크플로우 검증을 확장하고, 게이트 1용 `/prompt` 실행 절차와 로그 수집 구조를 준비.
 
+
+## 추가 업로드 확인 — 2026-09-11
+
+- 원격 `origin/main`의 `8073df6 Add files via upload`를 병합함.
+- 추가된 자료: 과거 요청서/보고서 Markdown 9개와 기존 설치 프로그램 2개.
+- 설치 프로그램 기본 무결성 확인:
+  - `AI_Webtoon_Studio_Setup_v2.3.exe`: PE32 Windows Nullsoft Installer, 6,287,043 bytes
+  - `MangaSceneStudio_Setup.exe`: PE32 Windows Nullsoft Installer, 170,652 bytes
+- 추가 업로드 이후에도 4개 워크플로우 정적 검증은 **전부 PASS**.
+- `patch_*.py`, `fix_*.py`, 파일명에 `ComfyUI`가 포함된 자료는 여전히 **없음**.
+- 과거 요청서/보고서는 파일로 존재함을 확인했지만, 프로젝트 실행 지시서는 계속 `AI_Manga_Studio_최종요청서_v8.md` 하나만 기준으로 사용함.
+- 원격 업로드에서 `PROGRESS.md`가 삭제되어 있었으나, 세션 진행 기록 보존을 위해 로컬 기록을 유지함.
+
+병합 커밋: `c304cba merge: incorporate uploaded project materials`
