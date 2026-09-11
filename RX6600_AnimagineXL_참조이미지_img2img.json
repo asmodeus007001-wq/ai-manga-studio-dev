@@ -1,0 +1,476 @@
+{
+  "id": "9d087d7e-8c78-46eb-bb2c-8cda3c6164c7",
+  "revision": 0,
+  "last_node_id": 9,
+  "last_link_id": 12,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        20,
+        260
+      ],
+      "size": [
+        315,
+        98
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 1,
+          "links": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 2,
+          "links": [
+            8,
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "animagine-xl-4.0-opt.safetensors"
+      ],
+      "widgets_values_named": {
+        "ckpt_name": "animagine-xl-4.0-opt.safetensors"
+      }
+    },
+    {
+      "id": 2,
+      "type": "CLIPTextEncode",
+      "pos": [
+        390,
+        70
+      ],
+      "size": [
+        430,
+        190
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "use the reference image as a structural starting point while following the requested scene description, preserve requested character identity, clothing, objects, actions, relationships, spatial positions, camera framing and lighting; controlled img2img transformation, webtoon illustration, manga, clean crisp lineart, precise ink lines, clear cel shading, clean color separation, detailed eyes, natural hands, correct anatomy, masterpiece, best quality"
+      ],
+      "widgets_values_named": {
+        "text": "use the reference image as a structural starting point while following the requested scene description, preserve requested character identity, clothing, objects, actions, relationships, spatial positions, camera framing and lighting; controlled img2img transformation, webtoon illustration, manga, clean crisp lineart, precise ink lines, clear cel shading, clean color separation, detailed eyes, natural hands, correct anatomy, masterpiece, best quality"
+      }
+    },
+    {
+      "id": 3,
+      "type": "CLIPTextEncode",
+      "pos": [
+        390,
+        330
+      ],
+      "size": [
+        430,
+        210
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "lowres, worst quality, low quality, blurry, jpeg artifacts, compression artifacts, messy lineart, bad proportions, bad anatomy, bad hands, malformed hands, extra fingers, missing fingers, fused fingers, deformed, distorted face, asymmetrical eyes, cross-eyed, duplicate, multiple views, cropped, out of frame, watermark, logo, signature, username, artist name, text, speech bubble"
+      ],
+      "widgets_values_named": {
+        "text": "lowres, worst quality, low quality, blurry, jpeg artifacts, compression artifacts, messy lineart, bad proportions, bad anatomy, bad hands, malformed hands, extra fingers, missing fingers, fused fingers, deformed, distorted face, asymmetrical eyes, cross-eyed, duplicate, multiple views, cropped, out of frame, watermark, logo, signature, username, artist name, text, speech bubble"
+      }
+    },
+    {
+      "id": 5,
+      "type": "VAEEncode",
+      "pos": [
+        390,
+        650
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 6
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEEncode"
+      }
+    },
+    {
+      "id": 6,
+      "type": "KSampler",
+      "pos": [
+        900,
+        190
+      ],
+      "size": [
+        315,
+        262
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 4
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        526856441801544,
+        "randomize",
+        30,
+        6,
+        "euler_ancestral",
+        "normal",
+        0.38
+      ],
+      "widgets_values_named": {
+        "seed": 526856441801544,
+        "control_after_generate": "randomize",
+        "steps": 30,
+        "cfg": 6,
+        "sampler_name": "euler_ancestral",
+        "scheduler": "normal",
+        "denoise": 0.38
+      }
+    },
+    {
+      "id": 7,
+      "type": "VAEDecode",
+      "pos": [
+        1280,
+        225
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 10
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 8,
+      "type": "SaveImage",
+      "pos": [
+        1550,
+        225
+      ],
+      "size": [
+        315,
+        270
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "AI_Webtoon_Studio_Reference"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "AI_Webtoon_Studio_Reference"
+      }
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        21.333333333333332,
+        40
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "slot_index": 1,
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "reference.png",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "reference.png",
+        "upload": "image"
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      6,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      1,
+      1,
+      2,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      1,
+      1,
+      3,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      2,
+      0,
+      6,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      5,
+      3,
+      0,
+      6,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      4,
+      0,
+      5,
+      0,
+      "IMAGE"
+    ],
+    [
+      7,
+      5,
+      0,
+      6,
+      3,
+      "LATENT"
+    ],
+    [
+      8,
+      1,
+      2,
+      7,
+      1,
+      "VAE"
+    ],
+    [
+      9,
+      1,
+      2,
+      5,
+      1,
+      "VAE"
+    ],
+    [
+      10,
+      6,
+      0,
+      7,
+      0,
+      "LATENT"
+    ],
+    [
+      11,
+      7,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.75,
+      "offset": [
+        302.66666666666697,
+        371.9999999999995
+      ]
+    },
+    "workspace_info": {
+      "id": "ai-webtoon-studio-reference-img2img-enhanced"
+    },
+    "frontendVersion": "1.51.10"
+  },
+  "version": 0.4
+}
