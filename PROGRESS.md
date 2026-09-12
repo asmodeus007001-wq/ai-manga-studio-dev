@@ -122,3 +122,10 @@ python3 validate_workflow_links.py \
 ### 중요한 제한
 
 현재 제공 가능한 것은 웹 앱 체크포인트와 Windows 패키징 구성입니다. 실제 `.exe`는 Inno Setup 및 독립 ComfyUI/모델 파일을 갖춘 Windows 환경에서 생성·검증해야 하며, 이를 완료했다고 가장하지 않습니다.
+## Cross-session operating policy — 2026-09-12
+
+- Manus completes all sandbox-capable coding, static checks, tests, builds, browser checks, workflow validation, documentation, and packaging preparation autonomously.
+- Only Windows 11 + RX6600 + ComfyUI runtime behavior, actual image generation/model loading, Inno Setup compilation, install/uninstall, and SmartScreen reproduction are user-PC checkpoints.
+- The conversation link is a resume pointer; durable state is stored in this repository, the WebDev project, its latest checkpoint, and the managed database.
+- Resume order: project instructions → `git pull` → `PROGRESS.md` → `SESSION_HANDOFF.md` → existing WebDev project/checkpoint. Never create a replacement WebDev project.
+- Final product target: AI-image-generation-optimized manga production software with a verified Windows Inno Setup installer and v8 behavior.

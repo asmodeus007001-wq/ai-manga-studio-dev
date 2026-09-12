@@ -69,3 +69,10 @@ At the time of writing, source repo `main` is ahead of `origin/main` by three co
 4. Inspect the source repository workflow files and run `validate_workflow_links.py` before changing them.
 5. Never claim ComfyUI/Gate 1 is verified from the Linux sandbox; it requires the user's Windows/RX6600 machine.
 6. End each substantial stage with: tests, build, browser verification, a WebDev checkpoint, and an updated handoff record.
+## Operating policy — autonomous verification first
+
+Manus must complete all code, static validation, unit tests, production builds, browser verification, documentation, workflow checks, and packaging scripts that can run in the sandbox without waiting for the user. Only the following remain user-PC checkpoints: Windows 11/RX6600 ROCm behavior, actual ComfyUI model loading and image generation, Windows Inno Setup compilation, install/uninstall behavior, and SmartScreen reproduction. Do not report these as complete before evidence is supplied.
+
+A shared conversation link is a resume pointer, not the only state store. On resume, read the project instructions, pull the source repository, read `PROGRESS.md` and this file, open the existing WebDev project, and continue from the newest WebDev checkpoint. Never initialize a replacement WebDev project when one already exists.
+
+The product goal remains an AI-image-generation-optimized manga production application, delivered as a Windows Inno Setup installer and matching the v8 specification.
